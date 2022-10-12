@@ -7,7 +7,7 @@ import  {
    TouchableOpacity,
   } from 'react-native';
 
-const App = ({ onPress }) => {
+const App = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
@@ -48,7 +48,10 @@ const App = ({ onPress }) => {
 
      <TouchableOpacity 
          style={styles.button}
-          title='Sign Up'>
+         title='Sign Up'
+         onPress={() => navigation.navigate('LoginForm')}
+         >
+          
        <Text style={styles.text}>Sign Up</Text>
        </TouchableOpacity>
 

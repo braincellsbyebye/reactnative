@@ -15,7 +15,7 @@ const App = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.navigate('Signup')} style={styles.appButton}>
         <Text style={styles.appButtonText}>Sign Up</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.appButtonContainer}>
+      <TouchableOpacity onPress={() => navigation.navigate('LoginForm')} style={styles.appButtonContainer}>
         <Text style={styles.appButtonText}>Login</Text>
       </TouchableOpacity>
     </View>
