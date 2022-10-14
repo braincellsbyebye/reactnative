@@ -4,16 +4,81 @@ import IndexScreen from '../screens/index';
 import AppointmentScreen from '../screens/appointment';
 import QRScreen from '../screens/qrcode';
 import UserScreen from "../screens/User";
+import { Button , Image} from "react-native";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Index" component={IndexScreen} options={{ headerShown:false }}/>
-            <Tab.Screen name="QR Code" component={QRScreen} options={{ headerShown:false }}/>
-            <Tab.Screen name="Appointment" component={AppointmentScreen} options={{ headerShown:false }}/>
-            <Tab.Screen name="User" component={UserScreen} options={{ headerShown:false }}/>
+            <Tab.Screen name="Index" component={IndexScreen} options = {{ 
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image
+              source={
+                focused
+                  ? require('../images/homeblue.png')
+                  : require('../images/home.png')
+              }
+              style={{
+                width: 22,
+                height: 22,
+              }}
+            />
+          ),
+          headerShown: false,
+
+        }}/>
+            <Tab.Screen name="QR Code" component={QRScreen} options = {{ 
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image
+              source={
+                focused
+                  ? require('../images/qrblue.png')
+                  : require('../images/qr.png')
+              }
+              style={{
+                width: 22,
+                height: 22,
+              }}
+            />
+          ),
+          headerShown: false,
+
+        }}/>
+            <Tab.Screen name="Appointment" component={AppointmentScreen} options = {{ 
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image
+              source={
+                focused
+                  ? require('../images/aptblue.png')
+                  : require('../images/apt.png')
+              }
+              style={{
+                width: 22,
+                height: 22,
+              }}
+            />
+          ),
+          headerShown: false,
+
+        }}/>
+            <Tab.Screen name="User" component={UserScreen} options = {{ 
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image
+              source={
+                focused
+                  ? require('../images/userblue.png')
+                  : require('../images/user.png')
+              }
+              style={{
+                width: 22,
+                height: 22,
+              }}
+            />
+          ),
+          headerShown: false,
+
+        }}/>
         </Tab.Navigator>
     );
     

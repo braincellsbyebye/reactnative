@@ -9,6 +9,9 @@ const IndexScreen = ( {navigation} ) => {
                 <Image style={styles.gt2} source = { require('../images/hannah.png')}/>
                 <Text style = {styles.gt3}>Name</Text>
                 <Text style = {styles.gt4}>User ID</Text>
+                <TouchableOpacity  onPress={() => navigation.navigate('Notification')}>
+                    <Image style={styles.gt5} source = { require('../images/bell.png')}/>
+                </TouchableOpacity>
             </View>
             <View style = {{ backgroundColor: "white",flex: 1, borderRadius:20, marginTop: -95}}>
                 <View style={{ marginLeft: 15, marginTop: 15,}}>
@@ -53,6 +56,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 10,
     },
+    gt5: {
+        width:40,
+        height:40,
+        borderRadius: 50,
+        marginTop: -75,
+        marginLeft: 330,
+        },
     gt3: {
         color: 'white',
         marginLeft: 75,

@@ -7,6 +7,8 @@ import LoginScreen from './screens/Login'
 import SignupScreen from './screens/Signup'
 import TabNavigator from './navigation/TabNavigator';
 import LoginFormScreen from './screens/LoginForm';
+import AptViewScreen from './screens/aptview';
+import NotifScreen from './screens/notification';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +24,8 @@ const MyStack = () => {
         <Stack.Screen name="Selection" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="LoginForm" component={LoginFormScreen} />
+        <Stack.Screen name="AptView" component={AptViewScreen} />
+        <Stack.Screen name="Notification" component={NotifScreen} />
         <Stack.Screen name="Index" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
