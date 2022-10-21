@@ -1,131 +1,121 @@
-import React, { Component, useEffect, useState } from 'react';
-import { ActivityIndicator, Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {View, Button, Text, TextInput, StyleSheet, Alert} from 'react-native';
 
-export default class AptView extends Component {
-    constructor(props) {
-        super(props);
+const AptView = ( {navigation} ) => {
+    const [name, setName] = useState('');
+    const [category, setCategory] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [purpose, setPurpose] = useState('');
 
-        this.state = {
-            data: [],
-            isLoading: true,
-            aptname: '',
-            aptdate:'',
-            apttime:'',
-            aptpurpose:'',
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
 
-        }
-    }
-
-    async getData() {
+    const getApt = async () => {
         try {
-            const response = await fetch('http://10.0.2.2:8000/api/appointment');
-            const json = await response.json();
-
-            this.setState({ data: json.appointment })
-        }
-        catch(error) {
-            console.error(error);
+        const response = await fetch('http://10.0.2.2:8000/api/appointment');
+        const json = await response.json();
+        setData(json.appointment);
+        } catch (error) {
+        console.error(error);
         } finally {
-            this.setState({ isLoading: false })
+        setLoading(false);
         }
     }
 
-    async SetApt () {
+    useEffect(() => {
+        getApt();
+    }, []);
+
+    const AddApt = async () => {
         try{
-            const response = fetch('http://10.0.2.2:8000/api/addapt', {
+            const response = await fetch('http://10.0.2.2:8000/api/addapt', {
                 method: 'POST',
                 headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  name: this.state.aptname,
-                  aptdate: this.state.aptdate,
-                  apttime: this.state.apttime,
-                  aptpurpose: this.state.aptpurpose
+                    name: name,
+                    aptcategory: category,
+                    aptdate: date,
+                    apttime: time,
+                    aptpurpose: purpose,
                 })
-              });
-              if ((await response).status === 201) {
-
-                this.setState({
-                    aptname: '',
-                    aptdate:'',
-                    apttime:'',
-                    aptpurpose:'',
-
-                })
-                this.getData();
-              }
-        }
-        catch(error) {
-            console.error(error);
+            });
+            if ((response).status === 201) {
+                setName('');
+                setCategory('');
+                setDate('');
+                setTime('');
+                setPurpose('');
+            }
+            Alert.alert('Appointment Set!');
+            navigation.navigate('Appointment');
+        const json = await response.json();
+        setData(json.appointment);
+        } catch (error) {
+        console.error(error);
         } finally {
-            this.setState({ isLoading: false })
+        setLoading(false);
         }
     }
 
-    componentDidMount(){
-        this.getData();
-    }
+    return(
+        <View style = {{ flex: 1, justifyContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
+            <TextInput 
+            style = { styles.input }
+            onChangeText = { (text) => [setName(text)] }
+            placeholder='Enter name'
+            placeholderTextColor= 'gray'
+            maxLength={15} 
+            />
+            <TextInput 
+            style = { styles.input }
+            onChangeText = { (text) => [setCategory(text)] }
+            placeholder='Enter Category (Dental/Clinic)'
+            placeholderTextColor= 'gray'
+            maxLength={6} 
+            />
+            <TextInput 
+            style = { styles.input }
+            onChangeText = { (text) => [setDate(text)] }
+            placeholder='Enter Date'
+            placeholderTextColor= 'gray'
+            maxLength={15} 
+            />
+            <TextInput 
+            style = { styles.input }
+            onChangeText = { (text) => [setTime(text)] }
+            placeholder='Enter Time'
+            placeholderTextColor= 'gray'
+            maxLength={15} 
+            />
+            <TextInput 
+            style = { styles.input }
+            onChangeText = { (text) => [setPurpose(text)] }
+            placeholder='Enter purpose'
+            placeholderTextColor= 'gray'
+            maxLength={15} 
+            />
+            <Button onPress={ AddApt } title='Set Appointment'></Button>
+        </View>
+    );
+};
 
-    render(){
-        const { data, isLoading } = this.state;
-
-        return(
-            <View style={{ flex: 1, padding: 24 }}>
-                { isLoading ? <ActivityIndicator /> : (
-                    <View>
-                        <TextInput style={styles.textInput} 
-                        placeholder='Name' 
-                        onChangeText={ text => this.setState({ aptname: text }) }
-                        Text = {this.state.aptname} />
-
-                        <TextInput style={styles.textInput} 
-                        placeholder='Date' 
-                        onChangeText={ text => this.setState({ aptdate: text }) }
-                        Text = {this.state.aptdate} />
-
-                        <TextInput style={styles.textInput} 
-                        placeholder='Time' 
-                        onChangeText={ text => this.setState({ apttime: text }) }
-                        Text = {this.state.apttime} />
-
-                        <TextInput style={styles.textInput} 
-                        placeholder='Purpose' 
-                        onChangeText={ text => this.setState({ aptpurpose: text }) }
-                        Text = {this.state.aptpurpose} />
-
-                        <Button title='Set Appointment' 
-                        color='darkorange'
-                        onPress={() => { this.SetApt() } }
-                        />
-                    </View>
-                )}
-                { isLoading ? <ActivityIndicator /> : (
-                    <FlatList
-                        data={ data }
-                        keyExtractor={({ id }, index) => id}
-                        renderItem={({ item }) => (
-                        <Text style={styles.item} >{item.name}, {item.aptdate}, {item.apttime}, {item.aptpurpose},</Text>
-                        )}
-                        />
-                )}
-            </View>
-        );
-    }
-}
 const styles = StyleSheet.create({
-    item: {
-        margin: 10,
-        padding: 10,
-        fontSize:20,
-        backgroundColor: 'bisque',
+    input: {
+    padding: 2,
+    width: 300,
+    height: 40,
+    marginLeft: 30,
+    marginBottom: 10,
+    borderColor: 'gray',
+    borderBottomWidth: 1.5,
+    shadowRadius: 10,
+    fontSize: 20,
+    color: 'black',
     },
-    textInput:{
-        borderWidth: 1,
-        borderColor: 'black',
-        height: 50,
-        margin: 10,
-        backgroundColor: 'bisque',
-    }
 })
+
+export default AptView;

@@ -3,11 +3,14 @@ import {View, Image, StyleSheet, Button, Text, TouchableOpacity} from 'react-nat
 
 const AppointmentScreen = ( {navigation} ) => {
     return(
-        <View style = {{ flex: 1,}}>
+        <View style = {{ flex: 1, alignItems: 'center'}}>
             <Image style={styles.img} source = { require('../images/aptimg.png')}/>
             <Text style={styles.bk}>Book Appointment</Text>
             <TouchableOpacity  onPress={() => navigation.navigate('AptView')}>
                 <Image style={styles.img2} source = { require('../images/clinicimg.png')}/>
+            </TouchableOpacity>
+            <TouchableOpacity  onPress={() => navigation.navigate('AptView')}>
+                <Image style={styles.img2} source = { require('../images/dental.png')}/>
             </TouchableOpacity>
         </View>
     );
@@ -17,14 +20,15 @@ const styles = StyleSheet.create({
       marginTop: -20,
     },
     bk: {
-        marginTop: 20,
-        marginLeft:20,
+        marginLeft: -200,
+        marginBottom: 20,
         fontWeight: 'bold',
         fontSize:18,
     },
     img2: {
-        marginTop:50,
-        marginLeft:45,
+        width:200,
+        marginBottom: 30,
+        height:150,
     },
   })
 
