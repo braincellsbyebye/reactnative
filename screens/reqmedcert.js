@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 
-const QRScreen = ( {navigation} ) => {
+const ReqMed = ( {navigation} ) => {
     return(
         <View style = {{ flex: 1, justifyContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
             <Image source = { require('../images/qrscan.png')}/>
             <Text style = {{ fontSize: 20, color: 'black'}}>Welcome</Text>
-            <Text style = {{ fontSize: 10, color: 'black'}}>Please scan the QR Code to access the form</Text>
+            <Text style = {{ fontSize: 10, color: 'black'}}>Request Medical Certificate</Text>
             <TouchableOpacity style={styles.appButtonContainer}>
                 <Text style={styles.appButtonText}>Start</Text>
             </TouchableOpacity>
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
         marginTop:50,
     },
   })
-export default QRScreen;
+export default ReqMed;

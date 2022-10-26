@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from 'react';
 import IndexScreen from '../screens/index';
 import AppointmentScreen from '../screens/appointment';
-import QRScreen from '../screens/qrcode';
+import ReqMed from "../screens/reqmedcert";
 import UserScreen from "../screens/User";
 import { Button , Image} from "react-native";
 
@@ -28,7 +28,7 @@ const TabNavigator = () => {
           headerShown: false,
 
         }}/>
-            <Tab.Screen name="QR Code" component={QRScreen} options = {{ 
+            <Tab.Screen name="Request Medical Certificate" component={ReqMed} options = {{ 
           tabBarIcon: ({ focused, color, size }) => (
             <Image
               source={

@@ -6,8 +6,8 @@ const UserScreen = ( {navigation} ) => {
         <View style={{ flex:1, }}>
             <View style = {{ backgroundColor: "#011387",flex: 0.87, justifyContent: 'center', alignItems: 'center'}}>
                 <Image style={styles.gt2} source = { require('../images/hannah.png')}/>
-                <Text style = {{ fontSize: 18, color: 'white'}}>Name</Text>
-                <Text style = {{ fontSize: 11, color: 'white'}}>User ID</Text>
+                <Text style = {{ fontSize: 18, color: 'white'}}>{global.username}</Text>
+                <Text style = {{ fontSize: 11, color: 'white'}}>{global.email}</Text>
                 <TouchableOpacity>
                     <View style={styles.editprof}>
                         <Text style={{ fontWeight:'bold', color: 'black', }}>Edit Profile</Text>

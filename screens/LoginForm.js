@@ -1,10 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, TouchableOpacity, Text, TextInput, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const LoginFormScreen = ( {navigation} ) => {
+  const [email, setEmail] = useState();
+  const [pw, setPw] = useState();
+
+  const myfun = async () => {
+    await fetch('http://10.0.2.2:8000/api/mlogin', {
+      method:'POST',
+      headers:{
+        'Accept':'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({'email':email, 'password':pw})
+    }).then(res => res.json())
+    .then(resData =>{
+      if ("error" in resData) {
+        alert('Login Credentials do not match')
+      } else {
+        global.id = resData.id
+        global.username = resData.username
+        global.email = resData.email
+        global.fname = resData.fname
+        global.lname = resData.lname
+        navigation.navigate('Index')
+      }
+    })
+  }
+
     return(
-        <View style={styles.container}>
-       <View style={styles.ovalShape}></View>
+      <View style={styles.container}>
        
      <View>
        <Text style={styles.headerText}>'Hippo-Campus'</Text> 
@@ -24,19 +50,25 @@ const LoginFormScreen = ( {navigation} ) => {
      <View>
      <TextInput
          placeholder = "Email"
-         style={styles.input}>
+         style={styles.input}
+         value={email}
+         onChangeText={(value) => setEmail(value)}
+         >
        </TextInput>
        <TextInput
          placeholder = "Password"
          style={styles.input1}
+         value={pw}
+         onChangeText={(value) => setPw(value)}
          secureTextEntry>
        </TextInput>
+       <TouchableOpacity onPress={() => navigation.navigate('Signup')}><Text>Not registered? Sign up <Text style={{ color: 'blue' }}>here</Text></Text></TouchableOpacity>
      </View>
 
      <TouchableOpacity 
          style={styles.button}
          title='Sign Up'
-         onPress={() => navigation.navigate('Index')}
+         onPress={myfun}
          >
        <Text style={styles.text}>LOGIN</Text>
        </TouchableOpacity>
@@ -44,12 +76,14 @@ const LoginFormScreen = ( {navigation} ) => {
     );
 };
 const styles = StyleSheet.create({
+  here:{
+    marginTop: 30,
+   }, 
     container:{
      flex: 1,
      justifyContent:"center",
      backgroundColor:"white",
      alignItems:"center",
-     paddingTop:350,
      marginTop: 90,
     }, 
     headerText:{
@@ -71,15 +105,6 @@ const styles = StyleSheet.create({
      justifyContent:"center",
    
    },
-    ovalShape:{
-     marginTop:-540,
-     width:250,
-     height:150,
-     borderRadius:90,
-     transform: [{scale:2}],
-     backgroundColor:"#6C85BD",
-     opacity:0.3,
-    },
     title:{
      fontSize:25,
      marginTop:140,

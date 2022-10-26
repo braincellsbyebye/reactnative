@@ -11,6 +11,10 @@ const AptView = ( {navigation} ) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
+    var x = global.id
+    var y = global.fname
+    var z = global.lname
+
     const getApt = async () => {
         try {
         const response = await fetch('http://10.0.2.2:8000/api/appointment');
@@ -36,11 +40,13 @@ const AptView = ( {navigation} ) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    name: name,
+                    fname: y,
+                    lname: z,
                     aptcategory: category,
                     aptdate: date,
                     apttime: time,
                     aptpurpose: purpose,
+                    user_id: x,
                 })
             });
             if ((response).status === 201) {
@@ -49,6 +55,7 @@ const AptView = ( {navigation} ) => {
                 setDate('');
                 setTime('');
                 setPurpose('');
+                setid('');
             }
             Alert.alert('Appointment Set!');
             navigation.navigate('Appointment');
@@ -61,15 +68,9 @@ const AptView = ( {navigation} ) => {
         }
     }
 
+
     return(
         <View style = {{ flex: 1, justifyContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
-            <TextInput 
-            style = { styles.input }
-            onChangeText = { (text) => [setName(text)] }
-            placeholder='Enter name'
-            placeholderTextColor= 'gray'
-            maxLength={15} 
-            />
             <TextInput 
             style = { styles.input }
             onChangeText = { (text) => [setCategory(text)] }
@@ -91,6 +92,9 @@ const AptView = ( {navigation} ) => {
             placeholderTextColor= 'gray'
             maxLength={15} 
             />
+            <Text>{x}</Text>
+            <Text>{y}</Text>
+            <Text>{z}</Text>
             <TextInput 
             style = { styles.input }
             onChangeText = { (text) => [setPurpose(text)] }

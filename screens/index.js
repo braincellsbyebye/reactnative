@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text, Image, TouchableOpacity, Touchable} from 'react-native';
+import {View, StyleSheet, Text, Image, TouchableOpacity, Touchable, Button} from 'react-native';
 
 const IndexScreen = ( {navigation} ) => {
     return(
@@ -7,8 +7,8 @@ const IndexScreen = ( {navigation} ) => {
             <View style = {{ backgroundColor: "#011387",flex: 0.5}}>
                 <Text style = {{ fontSize: 18, color: 'white', marginTop: 10, marginLeft: 10}}>WELCOME!</Text>
                 <Image style={styles.gt2} source = { require('../images/hannah.png')}/>
-                <Text style = {styles.gt3}>Name</Text>
-                <Text style = {styles.gt4}>User ID</Text>
+                <Text style = {styles.gt3}>{global.username}</Text>
+                <Text style = {styles.gt4}>{global.email}</Text>
                 <TouchableOpacity  onPress={() => navigation.navigate('Notification')}>
                     <Image style={styles.gt5} source = { require('../images/bell.png')}/>
                 </TouchableOpacity>
