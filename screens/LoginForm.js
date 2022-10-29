@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity, Text, TextInput, StyleSheet} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 
 const LoginFormScreen = ( {navigation} ) => {
   const [email, setEmail] = useState();

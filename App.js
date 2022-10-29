@@ -8,6 +8,7 @@ import TabNavigator from './navigation/TabNavigator';
 import LoginFormScreen from './screens/LoginForm';
 import AptViewScreen from './screens/aptview';
 import NotifScreen from './screens/notification';
+import MedCert from './screens/medcert';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ const MyStack = () => {
         <Stack.Screen name="AptView" component={AptViewScreen} />
         <Stack.Screen name="Notification" component={NotifScreen} />
         <Stack.Screen name="Index" component={TabNavigator} />
+        <Stack.Screen name="MedCert" component={MedCert} />
       </Stack.Navigator>
     </NavigationContainer>
   );
