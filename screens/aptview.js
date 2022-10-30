@@ -92,9 +92,6 @@ const AptView = ( {navigation} ) => {
             placeholderTextColor= 'gray'
             maxLength={15} 
             />
-            <Text>{x}</Text>
-            <Text>{y}</Text>
-            <Text>{z}</Text>
             <TextInput 
             style = { styles.input }
             onChangeText = { (text) => [setPurpose(text)] }

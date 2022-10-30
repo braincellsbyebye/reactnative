@@ -11,7 +11,6 @@ const MedCert = ( {navigation} ) => {
         try {
         const response = await fetch(`http://10.0.2.2:8000/api/medi/${parameter}`);
         const json = await response.json();
-        console.log(json);
         setData(json.reqmed);
         } catch (error) {
         console.error(error);
@@ -26,9 +25,9 @@ const MedCert = ( {navigation} ) => {
     return(
         <View style = {{ padding: 30 }}>
             <Text style = { styles.header }>Your Medical Certificate</Text>
-            <Text>{data.fname}</Text>
-            <Text>{data.lname}</Text>
-            <Text>{data.verdict}</Text>
+            <Text style={styles.txt}>{data.fname}</Text>
+            <Text style={styles.txt}>{data.lname}</Text>
+            <Text style={styles.txt}>{data.verdict}</Text>
             <Text style={styles.txt}>{parameter}</Text>
         </View>
     );

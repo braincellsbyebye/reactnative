@@ -41,7 +41,7 @@ const UserScreen = ( {navigation} ) => {
                         <Image style={styles.gt1} source = { require('../images/gt.png')}/>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('LoginForm')}>
                 <View style={styles.edit2}>
                         <Text style={{ fontWeight:'bold', color: 'black', }}>Logout</Text>
                         <Image style={styles.gt1} source = { require('../images/gt.png')}/>
