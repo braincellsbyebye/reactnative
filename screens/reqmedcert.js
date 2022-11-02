@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 
 const ReqMed = ( {navigation} ) => {

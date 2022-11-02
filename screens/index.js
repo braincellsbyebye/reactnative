@@ -1,7 +1,27 @@
-import React from 'react';
-import {View, StyleSheet, Text, Image, TouchableOpacity, Touchable, Button} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, Text, Image, TouchableOpacity, ActivityIndicator, FlatList} from 'react-native';
 
 const IndexScreen = ( {navigation} ) => {
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+
+    let parameter = global.id
+
+    const getApt = async () => {
+        try {
+        const response = await fetch(`http://10.0.2.2:8000/api/apt/${parameter}`);
+        const json = await response.json();
+        setData(json.appointment);
+        } catch (error) {
+        console.error(error);
+        } finally {
+        setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        getApt();
+    }, []);
     return(
         <View style={{ flex:1, }}>
             <View style = {{ backgroundColor: "#011387",flex: 0.5}}>
@@ -18,6 +38,20 @@ const IndexScreen = ( {navigation} ) => {
                     <TouchableOpacity style={styles.an}>
                         <Text>Announcement</Text>
                     </TouchableOpacity>
+                    {isLoading ? <ActivityIndicator/> : (
+                    <FlatList
+                        style = {{ height: 550 }}
+                        data={data}
+                        keyExtractor={({ id }, index) => id}
+                        renderItem={({ item }) => (
+                            <View style={styles.cont}>
+                                <Text style = {styles.txt}>{item.aptcategory}</Text>
+                                <Text style = {styles.txt}>{item.aptdate}, {item.apttime}</Text>
+                                <Text style = {styles.txt}>{item.aptpurpose}{"\n"}</Text>
+                            </View>
+                        )}
+                    />
+                    )}
                     <TouchableOpacity style={styles.sp}>
                         <Text>Specialist</Text>
                     </TouchableOpacity>
@@ -27,6 +61,12 @@ const IndexScreen = ( {navigation} ) => {
     );
 };
 const styles = StyleSheet.create({
+    txt: {
+        color: 'black'
+    },
+    cont: {
+        marginLeft: 10
+    },
     an: {
         marginLeft:20,
         marginTop:30,
