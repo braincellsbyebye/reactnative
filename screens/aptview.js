@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import {View, Button, Text, TextInput, StyleSheet, Alert, TouchableOpacity, Modal} from 'react-native';
 import { ModalPicker } from './components/ModalPicker'
+import { MDPicker } from './components/MD';
 
 const AptView = ( {navigation} ) => {
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [date, setDate] = useState('');
-    const [time, setTime] = useState('');
     const [purpose, setPurpose] = useState('');
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [choosedata, setChooseData] = useState('Select Category...');
+    const [t, setT] = useState('Select Time...');
+
     const [isModalVisible, setisModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
 
     var x = global.id
     var y = global.fname
@@ -47,7 +50,7 @@ const AptView = ( {navigation} ) => {
                     lname: z,
                     aptcategory: choosedata,
                     aptdate: date,
-                    apttime: time,
+                    apttime: t,
                     aptpurpose: purpose,
                     user_id: x,
                 })
@@ -56,7 +59,7 @@ const AptView = ( {navigation} ) => {
                 setName('');
                 setCategory('');
                 setDate('');
-                setTime('');
+                setT('');
                 setPurpose('');
                 setid('');
             }
@@ -79,6 +82,14 @@ const AptView = ( {navigation} ) => {
         setChooseData(option)
     }
 
+    const cmv = (bool) => {
+        setModalVisible(bool)
+    }
+
+    const sd = (option) => {
+        setT(option)
+    }
+
     return(
         <View style = {{ flex: 1, justifyContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
             
@@ -89,13 +100,21 @@ const AptView = ( {navigation} ) => {
             placeholderTextColor= 'gray'
             maxLength={15} 
             />
-            <TextInput 
-            style = { styles.input }
-            onChangeText = { (text) => [setTime(text)] }
-            placeholder='Enter Time'
-            placeholderTextColor= 'gray'
-            maxLength={15} 
-            />
+
+            <TouchableOpacity style={styles.opt} onPress={() => cmv(true) }>
+                <Text>{t}</Text>
+            </TouchableOpacity>
+            <Modal
+                transparent={true}
+                animationType='fade'
+                visible={modalVisible}
+                nRequestClose={() => cmv(false)}
+            >
+                <MDPicker 
+                    changeModalVisibility={cmv}
+                    setData={setT}
+                />
+            </Modal>
 
             <TouchableOpacity style={styles.opt} onPress={() => changeModalVisibility(true) }>
                 <Text>{choosedata}</Text>

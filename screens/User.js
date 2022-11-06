@@ -8,7 +8,7 @@ const UserScreen = ( {navigation} ) => {
                 <Image style={styles.gt2} source = { require('../images/hannah.png')}/>
                 <Text style = {{ fontSize: 18, color: 'white'}}>{global.username}</Text>
                 <Text style = {{ fontSize: 11, color: 'white'}}>{global.email}</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('UserProfile')}>
                     <View style={styles.editprof}>
                         <Text style={{ fontWeight:'bold', color: 'black', }}>Edit Profile</Text>
                         <Image style={styles.gt} source = { require('../images/gt.png')}/>

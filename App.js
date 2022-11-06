@@ -11,6 +11,8 @@ import NotifScreen from './screens/notification';
 import MedCert from './screens/medcert';
 import About from './screens/About';
 import Policy from './screens/Policy';
+import DetailsScreen from './screens/Details';
+import UserProfile from './screens/UserProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +33,8 @@ const MyStack = () => {
         <Stack.Screen name="Policy" component={Policy} />
         <Stack.Screen name="Index" component={TabNavigator} />
         <Stack.Screen name="MedCert" component={MedCert} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="UserProfile" component={UserProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

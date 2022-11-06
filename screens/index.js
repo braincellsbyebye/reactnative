@@ -44,11 +44,12 @@ const IndexScreen = ( {navigation} ) => {
                         data={data}
                         keyExtractor={({ id }, index) => id}
                         renderItem={({ item }) => (
-                            <View style={styles.cont}>
-                                <Text style = {styles.txt}>{item.aptcategory}</Text>
-                                <Text style = {styles.txt}>{item.aptdate}, {item.apttime}</Text>
-                                <Text style = {styles.txt}>{item.aptpurpose}{"\n"}</Text>
-                            </View>
+                            <TouchableOpacity onPress={() => {navigation.navigate('Details', {item:item})}}>
+                                <View style={styles.cont}>
+                                    <Text style = {styles.txt}>{item.id}. {item.aptcategory}{"\n"}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            
                         )}
                     />
                     )}
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     },
     sp: {
         marginLeft:250,
-        marginTop:-17,
+        marginTop:-170,
     },
     editprof: {
       backgroundColor: 'white',

@@ -17,6 +17,7 @@ const LoginFormScreen = ( {navigation} ) => {
     .then(resData =>{
       if ("error" in resData) {
         alert('Login Credentials do not match')
+        console.log(resData)
       } else {
         global.id = resData.id
         global.username = resData.username

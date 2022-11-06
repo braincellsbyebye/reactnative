@@ -47,8 +47,16 @@ const Signup = ( {navigation} ) => {
 
     return(
         <View style = {{ flex: 1, justifyContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
+            <View>
+                <Text style={styles.headerText}>'Hippo-Campus'</Text> 
+            </View>
+
+            <View>
+                <Text style={styles.subheaderText}>MSEUF’s first beta web based and mobile 
+                application clinic management system </Text> 
+            </View>
             <TextInput 
-            style = { styles.input }
+            style = { styles.input1 }
             onChangeText = { (text) => [setUsername(text)] }
             placeholder='Enter Username'
             placeholderTextColor= 'gray'
@@ -95,6 +103,33 @@ const styles = StyleSheet.create({
         marginBottom:10,
         width:290,
     },
+    input1: {
+        marginTop:70,
+        paddingTop:5,
+        borderWidth:1,
+        borderRadius:10,
+        marginBottom:10,
+        width:290,
+    },
+    headerText:{
+        fontSize:32,
+        textAlign:"center",
+        fontWeight:"bold",
+        marginTop:-80,
+        fontFamily:"sans-serif-light",
+        color:"black"
+    
+      },
+      subheaderText:{
+       fontSize:13,
+       textAlign:"center",
+       marginTop:-30,
+       color:"black",
+       fontWeight:"bold",
+       fontFamily:"sans-serif-thin",
+       justifyContent:"center",
+     
+     },
 })
 
 export default Signup;
