@@ -38,7 +38,7 @@ const ReqMed = ( {navigation} ) => {
 
     return(
         <View style = {{ flex: 1, justifyContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
-            <Image source = { require('../images/qrscan.png')}/>
+            <Image source = { require('../images/medcertificate.png')}/>
             <Text style = {{ fontSize: 20, color: 'black'}}>Request Your Medical Certificate</Text>
             <TouchableOpacity onPress={ReqCert} style={styles.appButtonContainer}>
                 <Text style={styles.appButtonText}>Request</Text>

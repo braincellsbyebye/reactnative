@@ -19,6 +19,18 @@ const IndexScreen = ( {navigation} ) => {
         }
     }
 
+    const getDoc = async () => {
+        try {
+        const response = await fetch(`http://10.0.2.2:8000/api/doctors`);
+        const json = await response.json();
+        setData(json.doctors);
+        } catch (error) {
+        console.error(error);
+        } finally {
+        setLoading(false);
+        }
+    }
+
     useEffect(() => {
         getApt();
     }, []);
@@ -36,17 +48,17 @@ const IndexScreen = ( {navigation} ) => {
             <View style = {{ backgroundColor: "white",flex: 1, borderRadius:20, marginTop: -95}}>
                 <View style={{ marginLeft: 15, marginTop: 15,}}>
                     <TouchableOpacity style={styles.an}>
-                        <Text>Announcement</Text>
+                        <Text>Appointments</Text>
                     </TouchableOpacity>
                     {isLoading ? <ActivityIndicator/> : (
                     <FlatList
-                        style = {{ height: 550 }}
+                        style = {{ height: 550, marginLeft: 35 }}
                         data={data}
                         keyExtractor={({ id }, index) => id}
                         renderItem={({ item }) => (
                             <TouchableOpacity onPress={() => {navigation.navigate('Details', {item:item})}}>
                                 <View style={styles.cont}>
-                                    <Text style = {styles.txt}>{item.id}. {item.aptcategory}{"\n"}</Text>
+                                    <Text style = {styles.txt}>{item.aptcategory}{"\n"}</Text>
                                 </View>
                             </TouchableOpacity>
                             
@@ -56,6 +68,21 @@ const IndexScreen = ( {navigation} ) => {
                     <TouchableOpacity style={styles.sp}>
                         <Text>Specialist</Text>
                     </TouchableOpacity>
+                    {isLoading ? <ActivityIndicator/> : (
+                    <FlatList
+                        style = {{ height: 550, marginLeft: 150 }}
+                        data={data}
+                        keyExtractor={({ id }, index) => id}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity onPress={() => {navigation.navigate('Details', {item:item})}}>
+                                <View style={styles.cont}>
+                                    <Text style = {styles.txt}>{item.docname}{"\n"}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            
+                        )}
+                    />
+                    )}
                 </View>
             </View>
         </View>
@@ -74,7 +101,7 @@ const styles = StyleSheet.create({
     },
     sp: {
         marginLeft:250,
-        marginTop:-170,
+        marginTop:-570,
     },
     editprof: {
       backgroundColor: 'white',

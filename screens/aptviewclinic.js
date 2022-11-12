@@ -3,7 +3,7 @@ import {View, Button, Text, TextInput, StyleSheet, Alert, TouchableOpacity, Moda
 import { ModalPicker } from './components/ModalPicker'
 import { MDPicker } from './components/MD';
 
-const AptView = ( {navigation} ) => {
+const ClinicApt = ( {navigation} ) => {
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [purpose, setPurpose] = useState('');
@@ -19,7 +19,7 @@ const AptView = ( {navigation} ) => {
     var y = global.fname
     var z = global.lname
     var v_ver = "TBA"
-    var ct = "Dental"
+    var ct = "Clinic"
 
     const getApt = async () => {
         try {
@@ -151,4 +151,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AptView;
+export default ClinicApt;

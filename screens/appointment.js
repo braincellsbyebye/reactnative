@@ -6,7 +6,7 @@ const AppointmentScreen = ( {navigation} ) => {
         <View style = {{ flex: 1, alignItems: 'center'}}>
             <Image style={styles.img} source = { require('../images/aptimg.png')}/>
             <Text style={styles.bk}>Book Appointment</Text>
-            <TouchableOpacity  onPress={() => navigation.navigate('AptView')}>
+            <TouchableOpacity  onPress={() => navigation.navigate('AptClinic')}>
                 <Image style={styles.img2} source = { require('../images/clinicimg.png')}/>
             </TouchableOpacity>
             <TouchableOpacity  onPress={() => navigation.navigate('AptView')}>
