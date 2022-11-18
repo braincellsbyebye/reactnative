@@ -5,12 +5,30 @@ import AppointmentScreen from '../screens/appointment';
 import ReqMed from "../screens/reqmedcert";
 import UserScreen from "../screens/User";
 import { Button , Image} from "react-native";
+import HScreen from "../screens/home";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
     return (
         <Tab.Navigator>
+          <Tab.Screen name="HS" component={HScreen} options = {{ 
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image
+              source={
+                focused
+                  ? require('../images/homeblue.png')
+                  : require('../images/home.png')
+              }
+              style={{
+                width: 22,
+                height: 22,
+              }}
+            />
+          ),
+          headerShown: false,
+
+        }}/>
             <Tab.Screen name="Index" component={IndexScreen} options = {{ 
           tabBarIcon: ({ focused, color, size }) => (
             <Image
@@ -28,7 +46,7 @@ const TabNavigator = () => {
           headerShown: false,
 
         }}/>
-            <Tab.Screen name="Request Medical Certificate" component={ReqMed} options = {{ 
+            <Tab.Screen name="RequestMedicalCertificate" component={ReqMed} options = {{ 
           tabBarIcon: ({ focused, color, size }) => (
             <Image
               source={

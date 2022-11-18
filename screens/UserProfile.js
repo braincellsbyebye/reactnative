@@ -68,23 +68,23 @@ import React, { useState, useEffect } from 'react';
    return (
 
     <ScrollView>
-     <View style={{ flex:1 }}>
-     <Image style={styles.back} source={require('../images/backarrow.png')}></Image>  
+     <View style={{ flex:1, alignItems: 'center' }}>  
       <View>
         <Text style={styles.editheader}>Edit Profile</Text>
       </View>
+      <View style = {{ marginRight: 150, marginTop: -15 }}>
         <Text style={styles.circle}></Text>
         <Text style={styles.circle1}></Text> 
         <Image style={styles.edit} source={require('../images/edit.png')}></Image>  
-      
+      </View>
       <View>
-        <Text>First Name: {data.fname}</Text>
-        <Text>Last Name: {data.lname}</Text>
+        <Text style={{ marginTop: 25, textAlign: 'center' }}>First Name: {data.fname}</Text>
+        <Text style={{ textAlign: 'center' }}>Last Name: {data.lname}</Text>
         <Text style={styles.user}>Username</Text>
         <TextInput 
             style = { styles.input }
             onChangeText = { (text) => [setUsername(text)] }
-            placeholder='Enter purpose'
+            placeholder='Enter Username'
             placeholderTextColor= 'gray'
             maxLength={15} 
             />
@@ -92,7 +92,7 @@ import React, { useState, useEffect } from 'react';
         <TextInput 
             style = { styles.input }
             onChangeText = { (text) => [setEmail(text)] }
-            placeholder='Enter purpose'
+            placeholder='Enter Email'
             placeholderTextColor= 'gray'
             maxLength={15} 
             />
@@ -104,7 +104,7 @@ import React, { useState, useEffect } from 'react';
             placeholderTextColor= 'gray'
             secureTextEntry
             />
-        <Button onPress={Update} title="Test"></Button>
+        <Button onPress={Update} title="Update"></Button>
 
       </View>
         

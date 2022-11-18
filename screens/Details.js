@@ -8,7 +8,7 @@ const DetailsScreen = ( {route} ) => {
             <Text>Date: {route.params.item.aptdate}</Text>
             <Text>Time: {route.params.item.apttime}</Text>
             <Text>Purpose: {route.params.item.aptpurpose}</Text>
-            <Text>Purpose: {route.params.item.aptverify}</Text>
+            <Text>Verification: {route.params.item.aptverify}</Text>
         </View>
     );
 };

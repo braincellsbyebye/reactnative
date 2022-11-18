@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Text, Image, TouchableOpacity, ActivityIndicator, FlatList} from 'react-native';
 
-const IndexScreen = ( {navigation} ) => {
+const HScreen = ( {navigation} ) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
@@ -46,44 +46,22 @@ const IndexScreen = ( {navigation} ) => {
                 </TouchableOpacity>
             </View>
             <View style = {{ backgroundColor: "white",flex: 1, borderRadius:20, marginTop: -95}}>
-                <View style={{ marginLeft: 15, marginTop: 15,}}>
-                    <TouchableOpacity style={styles.an}>
-                        <Text>Approved Appointments</Text>
+                <View style={{ flex: 1, alignItems: 'center', marginTop: 150 }}>
+                    <Text style={styles.txt}>Get Started</Text>
+                    <Text style={styles.txt}>__________________________________________________</Text>
+                    <TouchableOpacity  onPress={() => navigation.navigate('Appointment')}>
+                        <Text style={styles.txt}>Want to book an appointment? Click Here!</Text>
                     </TouchableOpacity>
-                    {isLoading ? <ActivityIndicator/> : (
-                    <FlatList
-                        style = {{ height: 550, marginLeft: 35 }}
-                        data={data}
-                        keyExtractor={({ id }, index) => id}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => {navigation.navigate('Details', {item:item})}}>
-                                <View style={styles.cont}>
-                                    <Text style = {styles.txt}>{item.aptcategory}{"\n"}</Text>
-                                </View>
-                            </TouchableOpacity>
-                            
-                        )}
-                    />
-                    )}
-                    <TouchableOpacity style={styles.sp}>
-                        <Text>Specialist</Text>
+                    <Text style={styles.txt}>__________________________________________________</Text>
+                    <TouchableOpacity  onPress={() => navigation.navigate('RequestMedicalCertificate')}>
+                        <Text style={styles.txt}>Request a medical certificate for pickup? Click Here!</Text>
                     </TouchableOpacity>
-                    {isLoading ? <ActivityIndicator/> : (
-                    <FlatList
-                        style = {{ height: 550, marginLeft: 150 }}
-                        data={data}
-                        keyExtractor={({ id }, index) => id}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => {navigation.navigate('Details', {item:item})}}>
-                                <View style={styles.cont}>
-                                    <Text style = {styles.txt}>{item.docname}{"\n"}</Text>
-                                </View>
-                            </TouchableOpacity>
-                            
-                        )}
-                    />
-                    )}
+                    <Text style={styles.txt}>__________________________________________________</Text>
+                    <TouchableOpacity  onPress={() => navigation.navigate('Index')}>
+                        <Text style={styles.txt}>Want to see accepted appointments? Click Here!</Text>
+                    </TouchableOpacity>
                 </View>
+                
             </View>
         </View>
     );
@@ -149,4 +127,4 @@ const styles = StyleSheet.create({
         marginTop: -12,
       },
   })
-export default IndexScreen;
+export default HScreen;
