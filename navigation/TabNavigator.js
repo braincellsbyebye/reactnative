@@ -34,8 +34,8 @@ const TabNavigator = () => {
             <Image
               source={
                 focused
-                  ? require('../images/homeblue.png')
-                  : require('../images/home.png')
+                  ? require('../images/indexblue.jpg')
+                  : require('../images/index.jpg')
               }
               style={{
                 width: 22,

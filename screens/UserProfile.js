@@ -73,9 +73,6 @@ import React, { useState, useEffect } from 'react';
         <Text style={styles.editheader}>Edit Profile</Text>
       </View>
       <View style = {{ marginRight: 150, marginTop: -15 }}>
-        <Text style={styles.circle}></Text>
-        <Text style={styles.circle1}></Text> 
-        <Image style={styles.edit} source={require('../images/edit.png')}></Image>  
       </View>
       <View>
         <Text style={{ marginTop: 25, textAlign: 'center' }}>First Name: {data.fname}</Text>

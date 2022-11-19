@@ -4,7 +4,7 @@ import {View, StyleSheet, Text, Image, TouchableOpacity, Alert} from 'react-nati
 const UserScreen = ( {navigation} ) => {
     return(
         <View style={{ flex:1, }}>
-            <View style = {{ backgroundColor: "#011387",flex: 0.87, justifyContent: 'center', alignItems: 'center'}}>
+            <View style = {{ backgroundColor: "#011387",flex: 0.4, justifyContent: 'center', alignItems: 'center'}}>
                 <Image style={styles.gt2} source = { require('../images/hannah.png')}/>
                 <Text style = {{ fontSize: 18, color: 'white'}}>{global.username}</Text>
                 <Text style = {{ fontSize: 11, color: 'white'}}>{global.email}</Text>
@@ -15,19 +15,6 @@ const UserScreen = ( {navigation} ) => {
                     </View>
                 </TouchableOpacity>
             </View>
-            <Text style={{ marginTop: 15, marginLeft: 15, }}>CONTENT</Text>
-            <TouchableOpacity>
-                <View style={styles.edit1}>
-                        <Text style={{ fontWeight:'bold', color: 'black', }}>Medical Records</Text>
-                        <Image style={styles.gt1} source = { require('../images/gt.png')}/>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <View style={styles.edit2}>
-                        <Text style={{ fontWeight:'bold', color: 'black', }}>Medical History</Text>
-                        <Image style={styles.gt1} source = { require('../images/gt.png')}/>
-                </View>
-            </TouchableOpacity>
             <Text style={{ marginTop: 15, marginLeft: 15, }}>PREFERENCES</Text>
             <TouchableOpacity onPress={() => navigation.navigate('About')}>
                 <View style={styles.edit3}>
