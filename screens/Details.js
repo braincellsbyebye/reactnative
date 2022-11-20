@@ -4,11 +4,11 @@ import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 const DetailsScreen = ( {route} ) => {
     return(
         <View style = {{ flex: 1, justifyContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Category: {route.params.item.aptcategory}</Text>
-            <Text>Date: {route.params.item.aptdate}</Text>
-            <Text>Time: {route.params.item.apttime}</Text>
-            <Text>Purpose: {route.params.item.aptpurpose}</Text>
-            <Text>Verification: {route.params.item.aptverify}</Text>
+            <Text style={{ color: 'black' }}>Category: {route.params.item.aptcategory}</Text>
+            <Text style={{ color: 'black' }}>Date: {route.params.item.aptdate}</Text>
+            <Text style={{ color: 'black' }}>Time: {route.params.item.apttime}</Text>
+            <Text style={{ color: 'black' }}>Purpose: {route.params.item.aptpurpose}</Text>
+            <Text style={{ color: 'black' }}>Verification: {route.params.item.aptverify}</Text>
         </View>
     );
 };

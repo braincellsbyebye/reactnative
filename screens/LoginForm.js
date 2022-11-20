@@ -28,6 +28,16 @@ const LoginFormScreen = ( {navigation} ) => {
       }
     })
   }
+  const [chkemail, setchkemail] = useState(false);
+  const checkemail = text => {
+        let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+
+        if(regex.test(text)){
+            setchkemail(false);
+        } else {
+            setchkemail(true);
+        }
+    }
 
     return(
       <View style={styles.container}>
@@ -52,9 +62,16 @@ const LoginFormScreen = ( {navigation} ) => {
          placeholder = "Email"
          style={styles.input}
          value={email}
-         onChangeText={(value) => setEmail(value)}
+         onChangeText={(text) => [checkemail(text), setEmail(text)]}
          >
        </TextInput>
+       {
+            chkemail ? (
+                <Text style={{ color: 'red' }}>Invalid Email Format</Text>
+                ) : (
+                <Text></Text>
+            )
+            }
        <TextInput
          placeholder = "Password"
          style={styles.input1}

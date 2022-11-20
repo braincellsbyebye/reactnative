@@ -14,6 +14,8 @@ import Policy from './screens/Policy';
 import DetailsScreen from './screens/Details';
 import UserProfile from './screens/UserProfile';
 import ClinicApt from './screens/aptviewclinic';
+import UpdatePw from './screens/UpdatePw';
+import NewPw from './screens/NewPw';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +39,8 @@ const MyStack = () => {
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="AptClinic" component={ClinicApt} />
         <Stack.Screen name="UserProfile" component={UserProfile} />
+        <Stack.Screen name="UpdatePw" component={UpdatePw} />
+        <Stack.Screen name="NewPw" component={NewPw} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Text, Image, TouchableOpacity, ActivityIndicator, FlatList} from 'react-native';
+import {View, StyleSheet, Text, Image, TouchableOpacity, ActivityIndicator, FlatList, ScrollView} from 'react-native';
 
 const IndexScreen = ( {navigation} ) => {
     const [isLoading, setLoading] = useState(true);
@@ -31,6 +31,11 @@ const IndexScreen = ( {navigation} ) => {
         }
     }
 
+    const refresh =  () => {
+        setLoading(true);
+        getApt();
+      }
+
     useEffect(() => {
         getApt();
     }, []);
@@ -44,42 +49,30 @@ const IndexScreen = ( {navigation} ) => {
                 <TouchableOpacity  onPress={() => navigation.navigate('Notification')}>
                     <Image style={styles.gt5} source = { require('../images/bell.png')}/>
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.ref} onPress={refresh} >
+                    <Text style={{ textAlign: 'center', color: 'black', fontWeight: 'bold' }}>Refresh</Text>
+                </TouchableOpacity>
             </View>
             <View style = {{ backgroundColor: "white",flex: 1, borderRadius:20, marginTop: -95}}>
                 <View style={{ marginLeft: 15, marginTop: 15,}}>
-                    <TouchableOpacity style={styles.an}>
-                        <Text>Approved Appointments</Text>
-                    </TouchableOpacity>
+                    <Text style={styles.an}>Approved Appointments</Text>
+                    <Text style={styles.sp}>Specialist</Text>
                     {isLoading ? <ActivityIndicator/> : (
                     <FlatList
-                        style = {{ height: 550, marginLeft: 35 }}
+                        style = {{ height: 550, marginLeft: 15 }}
                         data={data}
                         keyExtractor={({ id }, index) => id}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => {navigation.navigate('Details', {item:item})}}>
-                                <View style={styles.cont}>
-                                    <Text style = {styles.txt}>{item.aptcategory}{"\n"}</Text>
-                                </View>
-                            </TouchableOpacity>
-                            
-                        )}
-                    />
-                    )}
-                    <TouchableOpacity style={styles.sp}>
-                        <Text>Specialist</Text>
-                    </TouchableOpacity>
-                    {isLoading ? <ActivityIndicator/> : (
-                    <FlatList
-                        style = {{ height: 550, marginLeft: 150 }}
-                        data={data}
-                        keyExtractor={({ id }, index) => id}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => {navigation.navigate('Details', {item:item})}}>
-                                <View style={styles.cont}>
-                                    <Text style = {styles.txt}>{item.docname}{"\n"}</Text>
-                                </View>
-                            </TouchableOpacity>
-                            
+                            <ScrollView>
+                                <TouchableOpacity onPress={() => {navigation.navigate('Details', {item:item})}}>
+                                    <View style={styles.cont}>
+                                        <Text style = {styles.txt}>{item.aptcategory}</Text>
+                                        <Text style={{ marginTop: -10 }}>________________________</Text>
+                                        <Text style = {styles.txt1}>{item.aptdate}</Text>
+                                        <Text style = {styles.txt1}>{item.apttime}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </ScrollView>
                         )}
                     />
                     )}
@@ -90,18 +83,45 @@ const IndexScreen = ( {navigation} ) => {
 };
 const styles = StyleSheet.create({
     txt: {
-        color: 'black'
+        color: 'black',
+        textAlign:'center',
+        fontSize: 15,
+    },
+    ref: {
+        backgroundColor: 'white',
+        color: 'black',
+        textAlign:'center',
+        fontSize: 15,
+        padding: 10,
+        width: 100,
+        borderRadius: 20,
+        marginLeft: 240,
+        marginTop: -10,
+    },
+    txt1: {
+        color: 'black',
+        textAlign:'center',
+        fontSize: 12,
     },
     cont: {
-        marginLeft: 10
+        backgroundColor: '#DBE0FC',
+        width: 160,
+        borderRadius: 10,
+        height: 70,
+        marginTop: 10
     },
     an: {
         marginLeft:20,
         marginTop:30,
+        marginBottom: 55,
+        fontWeight:'bold',
+        color: 'black'
     },
     sp: {
         marginLeft:250,
-        marginTop:-570,
+        marginTop:-73,
+        fontWeight: 'bold',
+        color: 'black'
     },
     editprof: {
       backgroundColor: 'white',
@@ -118,11 +138,11 @@ const styles = StyleSheet.create({
         marginTop: -12,
       },
     gt2: {
-    width:50,
-    height:50,
-    borderRadius: 50,
-    marginTop: 15,
-    marginLeft: 10,
+        width:50,
+        height:50,
+        borderRadius: 50,
+        marginTop: 15,
+        marginLeft: 10,
     },
     gt5: {
         width:40,

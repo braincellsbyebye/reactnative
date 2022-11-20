@@ -11,86 +11,50 @@ import React, { useState, useEffect } from 'react';
     
    } from 'react-native';
  
- const UserProfile = ({navigation}) => {
+ const UpdatePw = ({navigation}) => {
 
-    const [data, setData] = useState('');
-    const [isLoading, setLoading] = useState(true);
+    const [pw, setPw] = useState('');
 
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
+    let x = global.email;
 
-    let parameter = global.id
-
-    const getUserDetails = async () => {
-        try {
-        const response = await fetch(`http://10.0.2.2:8000/api/edit/${parameter}`);
-        const json = await response.json();
-        setData(json.useracc);
-        } catch (error) {
-        console.error(error);
-        } finally {
-        setLoading(false);
-        }
-    }
-
-    useEffect(() => {
-        getUserDetails();
-    }, []);
+    const myfun = async () => {
+        await fetch('http://10.0.2.2:8000/api/mlogin', {
+          method:'POST',
+          headers:{
+            'Accept':'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({'email':x, 'password':pw})
+        }).then(res => res.json())
+        .then(resData =>{
+          if ("error" in resData) {
+            alert('Login Credentials do not match')
+            console.log(resData)
+          } else {
+            navigation.navigate('NewPw')
+          }
+        })
+      }
  
-    const Update = async () => {
-        try{
-            const response = await fetch(`http://10.0.2.2:8000/api/update-user/${parameter}`, {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: username,
-                    email: email,
-                })
-            });
-            if ((response).status === 201) {
-                setEmail('');
-                setUsername('');
-                setPw('');
-            }
-            Alert.alert('User Updated!');
-            navigation.navigate('User');
-        } catch (error) {
-        console.error(error);
-        } finally {
-        setLoading(false);
-        }
-    }
    return (
 
     <ScrollView>
      <View style={{ flex:1, alignItems: 'center' }}>  
       <View>
-        <Text style={styles.editheader}>Edit Profile</Text>
+        <Text style={styles.editheader}>Update Password</Text>
       </View>
       <View style = {{ marginRight: 150, marginTop: -15 }}>
       </View>
       <View>
-        <Text style={{ marginTop: 25, textAlign: 'center' }}>First Name: {data.fname}</Text>
-        <Text style={{ textAlign: 'center' }}>Last Name: {data.lname}</Text>
-        <Text style={styles.user}>Username</Text>
+        <Text style={styles.user}>Enter Old Password</Text>
         <TextInput 
             style = { styles.input }
-            onChangeText = { (text) => [setUsername(text)] }
-            placeholder='Enter Username'
+            onChangeText = { (text) => [setPw(text)] }
+            placeholder='Enter Old Password'
             placeholderTextColor= 'gray'
-            maxLength={15} 
+            secureTextEntry
             />
-        <Text style={styles.email}>Email Address</Text>
-        <TextInput 
-            style = { styles.input }
-            onChangeText = { (text) => [setEmail(text)] }
-            placeholder='Enter Email'
-            placeholderTextColor= 'gray'
-            />
-        <Button onPress={Update} title="Update"></Button>
+        <Button onPress={myfun} title="Submit"></Button>
 
       </View>
         
@@ -259,5 +223,5 @@ import React, { useState, useEffect } from 'react';
  })
  
  
- export default UserProfile;
+ export default UpdatePw;
  

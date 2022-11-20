@@ -45,6 +45,17 @@ const Signup = ( {navigation} ) => {
         }
     }
 
+    const [chkemail, setchkemail] = useState(false);
+    const checkemail = text => {
+          let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+  
+          if(regex.test(text)){
+              setchkemail(false);
+          } else {
+              setchkemail(true);
+          }
+      }
+
     return(
         <View style = {{ flex: 1, justifyContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
             <View>
@@ -78,10 +89,17 @@ const Signup = ( {navigation} ) => {
             />
             <TextInput 
             style = { styles.input }
-            onChangeText = { (text) => [setEmail(text)] }
+            onChangeText = { (text) => [checkemail(text), setEmail(text)] }
             placeholder='Enter Email'
             placeholderTextColor= 'gray'
             />
+            {
+            chkemail ? (
+                <Text style={{ color: 'red' }}>Invalid Email Format</Text>
+                ) : (
+                <Text></Text>
+            )
+            }
             <TextInput 
             style = { styles.input }
             onChangeText = { (text) => [setPw(text)] }

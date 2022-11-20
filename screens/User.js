@@ -28,6 +28,12 @@ const UserScreen = ( {navigation} ) => {
                         <Image style={styles.gt1} source = { require('../images/gt.png')}/>
                 </View>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('UpdatePw')}>
+                <View style={styles.edit2}>
+                        <Text style={{ fontWeight:'bold', color: 'black', }}>Update Password</Text>
+                        <Image style={styles.gt1} source = { require('../images/gt.png')}/>
+                </View>
+            </TouchableOpacity>
             <TouchableOpacity onPress={ () => [Alert.alert("You Have been successfully logged out"), navigation.popToTop()] }>
                 <View style={styles.edit2}>
                         <Text style={{ fontWeight:'bold', color: 'black', }}>Logout</Text>
