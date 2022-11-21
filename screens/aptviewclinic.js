@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {View, Button, Text, TextInput, StyleSheet, Alert, TouchableOpacity, Modal} from 'react-native';
-import { ModalPicker } from './components/ModalPicker'
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { MDPicker } from './components/MD';
 
 const ClinicApt = ( {navigation} ) => {
     const [name, setName] = useState('');
-    const [date, setDate] = useState('');
     const [purpose, setPurpose] = useState('');
 
     const [isLoading, setLoading] = useState(true);
@@ -14,6 +13,28 @@ const ClinicApt = ( {navigation} ) => {
 
     const [isModalVisible, setisModalVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
+
+    const [date, setDate] = useState(new Date());
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setDate(currentDate);
+      };
+    
+    const showMode = (currentMode) => {
+        DateTimePickerAndroid.open({
+            value: date,
+            onChange,
+            mode: currentMode,
+            is24Hour: true,
+        }, 
+    );
+    };
+
+    const showDatepicker = () => {
+        showMode('date');
+
+    };
 
     var x = global.id
     var y = global.fname
@@ -49,7 +70,7 @@ const ClinicApt = ( {navigation} ) => {
                     fname: y,
                     lname: z,
                     aptcategory: ct,
-                    aptdate: date,
+                    aptdate: date.toLocaleDateString(),
                     apttime: t,
                     aptpurpose: purpose,
                     aptverify: v_ver,
@@ -96,13 +117,7 @@ const ClinicApt = ( {navigation} ) => {
             
             <Text>{ct} Appointment</Text>
 
-            <TextInput 
-            style = { styles.input }
-            onChangeText = { (text) => [setDate(text)] }
-            placeholder='Enter Date'
-            placeholderTextColor= 'gray'
-            maxLength={15} 
-            />
+            <Button onPress={showDatepicker} title="Select Date" />
 
             <TouchableOpacity style={styles.opt} onPress={() => cmv(true) }>
                 <Text>{t}</Text>
