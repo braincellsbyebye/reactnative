@@ -53,13 +53,12 @@ const IndexScreen = ( {navigation} ) => {
                     <Text style={{ textAlign: 'center', color: 'black', fontWeight: 'bold' }}>Refresh</Text>
                 </TouchableOpacity>
             </View>
-            <View style = {{ backgroundColor: "white",flex: 1, borderRadius:20, marginTop: -95}}>
+            <View style = {{ backgroundColor: "white",flex: 1, borderRadius:20, marginTop: -95, alignItems:'center'}}>
                 <View style={{ marginLeft: 15, marginTop: 15,}}>
                     <Text style={styles.an}>Approved Appointments</Text>
-                    <Text style={styles.sp}>Specialist</Text>
                     {isLoading ? <ActivityIndicator/> : (
                     <FlatList
-                        style = {{ height: 550, marginLeft: 15 }}
+                        style = {{ height: 550, marginTop: -50 }}
                         data={data}
                         keyExtractor={({ id }, index) => id}
                         renderItem={({ item }) => (
@@ -110,8 +109,15 @@ const styles = StyleSheet.create({
         height: 70,
         marginTop: 10
     },
+    cont1: {
+        backgroundColor: '#DBE0FC',
+        width: 160,
+        borderRadius: 10,
+        height: 70,
+        marginTop: 10,
+        marginLeft:200
+    },
     an: {
-        marginLeft:20,
         marginTop:30,
         marginBottom: 55,
         fontWeight:'bold',

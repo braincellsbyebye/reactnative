@@ -29,7 +29,7 @@ const TabNavigator = () => {
           headerShown: false,
 
         }}/>
-            <Tab.Screen name="Index" component={IndexScreen} options = {{ 
+          <Tab.Screen name="Appointments" component={IndexScreen} options = {{ 
           tabBarIcon: ({ focused, color, size }) => (
             <Image
               source={

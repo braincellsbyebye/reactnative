@@ -45,15 +45,12 @@ const MedCert = ( {navigation} ) => {
             </View>
 
             <View>
-            <View>
-                <Image style={styles.img} source={require('../images/fakesignature.png')}></Image>
-                <Text style={styles.closing}>Elizabeth Jones</Text>
-            </View>          
-            <Text style={styles.closing1}>Attending Doctor</Text> 
+              <Text style={{ marginLeft: 180, marginTop: 20 }}>_______________________</Text>   
+              <Text style={styles.closing1}>Attending Doctor</Text> 
             </View>
             {isLoading ? <ActivityIndicator/> : (
             <FlatList
-                style = {{ marginTop: -312, marginLeft: 165 }}
+                style = {{ marginTop: -140, marginLeft: 165 }}
                 data={data}
                 keyExtractor={({ id }, index) => id}
                 renderItem={({ item }) => (
@@ -71,6 +68,18 @@ const MedCert = ( {navigation} ) => {
                 renderItem={({ item }) => (
                     <View>
                         <Text style = {styles.txt}>{item.verdict}</Text>
+                    </View>
+                )}
+            />
+            )}
+            {isLoading ? <ActivityIndicator/> : (
+            <FlatList
+                style = {{ marginTop: 55, marginLeft: 200 }}
+                data={data}
+                keyExtractor={({ id }, index) => id}
+                renderItem={({ item }) => (
+                    <View>
+                        <Text style = {styles.txt}>{item.doctor}</Text>
                     </View>
                 )}
             />
@@ -172,7 +181,6 @@ const styles = StyleSheet.create({
       closing1:{
         marginLeft:200,
         color:'black',
-        marginTop:20,
       },
     
       img:{
