@@ -24,6 +24,8 @@ const LoginFormScreen = ( {navigation} ) => {
         global.email = resData.email
         global.fname = resData.fname
         global.lname = resData.lname
+        setEmail('');
+        setPw('');
         navigation.navigate('Index')
       }
     })

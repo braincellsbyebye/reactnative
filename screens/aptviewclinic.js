@@ -39,7 +39,7 @@ const ClinicApt = ( {navigation} ) => {
     var x = global.id
     var y = global.fname
     var z = global.lname
-    var v_ver = "TBA"
+    var v_ver = "Processing"
     var ct = "Clinic"
 
     const getApt = async () => {
