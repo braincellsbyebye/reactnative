@@ -139,7 +139,6 @@ const ClinicApt = ( {navigation} ) => {
             onChangeText = { (text) => [setPurpose(text)] }
             placeholder='Enter purpose'
             placeholderTextColor= 'gray'
-            maxLength={15} 
             />
             <Button onPress={ AddApt } title='Set Appointment'></Button>
         </View>
