@@ -9,9 +9,7 @@ const HScreen = ( {navigation} ) => {
                 <Image style={styles.gt2} source = { require('../images/hannah.png')}/>
                 <Text style = {styles.gt3}>{global.username}</Text>
                 <Text style = {styles.gt4}>{global.email}</Text>
-                <TouchableOpacity  onPress={() => navigation.navigate('Notification')}>
-                    <Image style={styles.gt5} source = { require('../images/bell.png')}/>
-                </TouchableOpacity>
+                <Image style={styles.gt5} source = { require('../images/logo2.png')}/>
             </View>
             <View style = {{ backgroundColor: "white",flex: 1, borderRadius:20, marginTop: -95}}>
                 <View style={{ flex: 1, alignItems: 'center', marginTop: 150 }}>
@@ -27,6 +25,10 @@ const HScreen = ( {navigation} ) => {
                     <Text style={styles.txt}>__________________________________________________</Text>
                     <TouchableOpacity  onPress={() => navigation.navigate('Appointments')}>
                         <Text style={styles.txt}>Want to see accepted appointments? Click Here!</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.txt}>__________________________________________________</Text>
+                    <TouchableOpacity  onPress={() => navigation.navigate('Doctor')}>
+                        <Text style={styles.txt}>Want to see our Doctors? Click Here!</Text>
                     </TouchableOpacity>
                 </View>
                 
@@ -71,11 +73,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     },
     gt5: {
-        width:40,
-        height:40,
+        width:100,
+        height:100,
         borderRadius: 50,
-        marginTop: -75,
-        marginLeft: 330,
+        marginTop: -60,
+        marginLeft: 270,
         },
     gt3: {
         color: 'white',

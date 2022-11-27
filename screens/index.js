@@ -46,19 +46,14 @@ const IndexScreen = ( {navigation} ) => {
                 <Image style={styles.gt2} source = { require('../images/hannah.png')}/>
                 <Text style = {styles.gt3}>{global.username}</Text>
                 <Text style = {styles.gt4}>{global.email}</Text>
-                <TouchableOpacity  onPress={() => navigation.navigate('Notification')}>
-                    <Image style={styles.gt5} source = { require('../images/bell.png')}/>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.ref} onPress={refresh} >
-                    <Text style={{ textAlign: 'center', color: 'black', fontWeight: 'bold' }}>Refresh</Text>
-                </TouchableOpacity>
+                <Image style={styles.gt5} source = { require('../images/logo2.png')}/>
             </View>
             <View style = {{ backgroundColor: "white",flex: 1, borderRadius:20, marginTop: -95, alignItems:'center'}}>
                 <View style={{ marginLeft: 15, marginTop: 15,}}>
                     <Text style={styles.an}>Approved Appointments</Text>
                     {isLoading ? <ActivityIndicator/> : (
                     <FlatList
-                        style = {{ height: 550, marginTop: -50 }}
+                        style = {{ marginTop: -50 }}
                         data={data}
                         keyExtractor={({ id }, index) => id}
                         renderItem={({ item }) => (
@@ -76,6 +71,11 @@ const IndexScreen = ( {navigation} ) => {
                     />
                     )}
                 </View>
+                <View style={{ marginTop: -60, marginRight: 450 }}>
+                    <TouchableOpacity style={styles.ref} onPress={refresh} >
+                        <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>Refresh</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
@@ -87,8 +87,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
     ref: {
-        backgroundColor: 'white',
-        color: 'black',
+        backgroundColor: '#011387',
         textAlign:'center',
         fontSize: 15,
         padding: 10,
@@ -151,11 +150,11 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     gt5: {
-        width:40,
-        height:40,
+        width:100,
+        height:100,
         borderRadius: 50,
-        marginTop: -75,
-        marginLeft: 330,
+        marginTop: -60,
+        marginLeft: 270,
         },
     gt3: {
         color: 'white',

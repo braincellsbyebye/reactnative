@@ -16,6 +16,9 @@ import UserProfile from './screens/UserProfile';
 import ClinicApt from './screens/aptviewclinic';
 import UpdatePw from './screens/UpdatePw';
 import NewPw from './screens/NewPw';
+import DoctorScreen from './screens/Doctor';
+import DoctorOne from './screens/doctorone';
+import DoctorTwo from './screens/DoctorTwo';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +31,10 @@ const MyStack = () => {
           component={LoginScreen}
           options={{ title: 'Home',headerShown: false }}
         />
+        <Stack.Screen name="DoctorOne" component={DoctorOne} />
+        <Stack.Screen name="DoctorTwo" component={DoctorTwo} />
         <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Doctor" component={DoctorScreen} />
         <Stack.Screen name="LoginForm" component={LoginFormScreen} />
         <Stack.Screen name="AptView" component={AptViewScreen} />
         <Stack.Screen name="Notification" component={NotifScreen} />
