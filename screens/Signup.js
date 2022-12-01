@@ -11,6 +11,9 @@ const Signup = ( {navigation} ) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
+    const [checkValidPW, setCheckValidPw] = useState(false);
+    const [checkValidUN, setCheckValidUN] = useState(false);
+
     const AddUser = async () => {
         try{
             const response = await fetch('http://10.0.2.2:8000/api/mregister', {
@@ -34,8 +37,6 @@ const Signup = ( {navigation} ) => {
                 setEmail('');
                 setPw('');
             }
-            Alert.alert('User Created!');
-            navigation.navigate('LoginForm');
         const json = await response.json();
         setData(json.useracc);
         } catch (error) {
@@ -56,6 +57,44 @@ const Signup = ( {navigation} ) => {
           }
       }
 
+      const checkPW = text => {
+        if (text.length < 8){
+            setCheckValidPw(true);
+        }else{
+            setCheckValidPw(false);
+        }
+    }
+
+    const checkUN = text => {
+        if (text.length < 4){
+            setCheckValidUN(true);
+        }else{
+            setCheckValidUN(false);
+        }
+    }
+
+      const user_validation = () => {
+        errors = [];
+
+        let regex2 = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+        if(regex2.test(email) == false){
+            errors.push("Invalid Email format")
+        }
+        if (name.length < 4){
+            errors.push("Username should have at least 4 characters")
+        }
+        if (pw.length < 8){
+            errors.push("Password should have at least 8 characters")
+        }
+        if (errors.length == 0){
+            AddUser();
+            Alert.alert('User Created!');
+            navigation.navigate('LoginForm');
+        }else{
+            Alert.alert("Error!", errors.join('\n'))
+        }
+    }
+
     return(
         <View style = {{ flex: 1, justifyContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
             <View>
@@ -68,11 +107,18 @@ const Signup = ( {navigation} ) => {
             </View>
             <TextInput 
             style = { styles.input1 }
-            onChangeText = { (text) => [setUsername(text)] }
+            onChangeText = { (text) => [ checkUN(text), setUsername(text)] }
             placeholder='Enter Username'
             placeholderTextColor= 'gray'
             maxLength={15} 
             />
+            {
+            checkValidUN ? (
+                <Text style={{ color: 'red' }}>Invalid Username Format</Text>
+                ) : (
+                <Text></Text>
+            )
+            }
             <TextInput 
             style = { styles.input }
             onChangeText = { (text) => [setFname(text)] }
@@ -102,12 +148,19 @@ const Signup = ( {navigation} ) => {
             }
             <TextInput 
             style = { styles.input }
-            onChangeText = { (text) => [setPw(text)] }
+            onChangeText = { (text) => [checkPW(text), setPw(text)] }
             placeholder='Enter Password'
             placeholderTextColor= 'gray'
             secureTextEntry
             />
-            <Button onPress={ AddUser } title='Register'></Button>
+            {
+            checkValidPW ? (
+                <Text style={{ color: 'red' }}>Invalid Password Format</Text>
+                ) : (
+                <Text></Text>
+            )
+            }
+            <Button onPress={ user_validation } title='Register'></Button>
         </View>
     );
 };
