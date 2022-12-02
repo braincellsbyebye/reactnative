@@ -28,7 +28,7 @@ import React, { useState, useEffect } from 'react';
         }).then(res => res.json())
         .then(resData =>{
           if ("error" in resData) {
-            alert('Login Credentials do not match')
+            alert('Invalid old password')
             console.log(resData)
           } else {
             navigation.navigate('NewPw')

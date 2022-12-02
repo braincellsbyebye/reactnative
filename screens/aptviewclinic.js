@@ -1,20 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import {View, Button, Text, TextInput, StyleSheet, Alert, TouchableOpacity, Modal} from 'react-native';
+import {View, Button, Text, TextInput, StyleSheet, Alert} from 'react-native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
-import { MDPicker } from './components/MD';
+import { Dropdown } from 'react-native-element-dropdown';
 
-const ClinicApt = ( {navigation} ) => {
+const AptView = ( {navigation} ) => {
     const [name, setName] = useState('');
     const [purpose, setPurpose] = useState('');
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
-    const [t, setT] = useState('Select Time...');
 
     const [isModalVisible, setisModalVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
 
     const [date, setDate] = useState(new Date());
+
+    //timepicker
+    const [focus, setfocus] = useState(false);
+    const [value, setValue] = useState(null);
+    const [newtime, setNewTime] = useState([]);
+
+    const gettime = async () => {
+        try {
+        const response = await fetch(`http://10.0.2.2:8000/api/allapt`);
+        const json = await response.json();
+        const selectTime = json.apt.map((apt) => ({
+            label: apt.apttime,
+            value: apt.apttime,
+        }));
+        const data = [
+          {label: '9:00AM-10:00AM', value: '9:00AM-10:00AM'},
+          {label: '10:00AM-11:00AM', value: '10:00AM-11:00AM'},
+          {label: '11:00AM-12:00PM', value: '11:00AM-12:00PM'},
+          {label: '1:00PM-2:00PM', value: '1:00PM-2:00PM'},
+          {label: '2:00PM-3:00PM', value: '2:00PM-3:00PM'},
+          {label: '3:00PM-4:00PM', value: '3:00PM-4:00PM'},
+          {label: '4:00PM-5:00PM', value: '4:00PM-5:00PM'},
+      ];
+        filteredArray = data.filter(array => !selectTime.find(label => (label.label === array.label && array.value === label.value) ))
+    
+        setNewTime(filteredArray);
+        } catch (error) {
+        console.error(error);
+        } finally {
+        setLoading(false);
+        }
+    }
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
@@ -22,10 +53,13 @@ const ClinicApt = ( {navigation} ) => {
       };
     
     const showMode = (currentMode) => {
+        var date = new Date()
         DateTimePickerAndroid.open({
             value: date,
             onChange,
             mode: currentMode,
+            minimumDate: (date),
+            maximumDate: (new Date(date.getFullYear(), date.getMonth(), date.getDate()+6)),
             is24Hour: true,
         }, 
     );
@@ -35,6 +69,7 @@ const ClinicApt = ( {navigation} ) => {
         showMode('date');
 
     };
+
 
     var x = global.id
     var y = global.fname
@@ -56,6 +91,7 @@ const ClinicApt = ( {navigation} ) => {
 
     useEffect(() => {
         getApt();
+        gettime();
     }, []);
 
     const AddApt = async () => {
@@ -71,7 +107,7 @@ const ClinicApt = ( {navigation} ) => {
                     lname: z,
                     aptcategory: ct,
                     aptdate: date.toLocaleDateString(),
-                    apttime: t,
+                    apttime: value,
                     aptpurpose: purpose,
                     aptverify: v_ver,
                     user_id: x,
@@ -119,20 +155,26 @@ const ClinicApt = ( {navigation} ) => {
 
             <Button onPress={showDatepicker} title="Select Date" />
 
-            <TouchableOpacity style={styles.opt} onPress={() => cmv(true) }>
-                <Text>{t}</Text>
-            </TouchableOpacity>
-            <Modal
-                transparent={true}
-                animationType='fade'
-                visible={modalVisible}
-                nRequestClose={() => cmv(false)}
-            >
-                <MDPicker 
-                    changeModalVisibility={cmv}
-                    setData={setT}
-                />
-            </Modal>
+            <Text>{date.toLocaleDateString()}</Text>
+
+            <Dropdown
+                style={[styles.input, focus]}
+                iconStyle={styles.iconStyle}
+                data={newtime}
+                search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder={!focus ? 'Select Time' : '...'}
+                searchPlaceholder="Search..."
+                value={value}
+                onFocus={() => setfocus(true)}
+                onBlur={() => setfocus(false)}
+                onChange={item => {
+                setValue(item.value);
+                setfocus(false);
+                }}
+            />
 
             <TextInput 
             style = { styles.input }
@@ -165,4 +207,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ClinicApt;
+export default AptView;

@@ -36,6 +36,25 @@ import React, { useState, useEffect } from 'react';
     useEffect(() => {
         getUserDetails();
     }, []);
+
+    const [chkemail, setchkemail] = useState(false);
+    const checkemail = text => {
+          let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+  
+          if(regex.test(text)){
+              setchkemail(false);
+          } else {
+              setchkemail(true);
+          }
+      }
+    const [checkValidUN, setCheckValidUN] = useState(false);
+    const checkUN = text => {
+        if (text.length < 4){
+            setCheckValidUN(true);
+        }else{
+            setCheckValidUN(false);
+        }
+    }
  
     const Update = async () => {
         try{
@@ -55,14 +74,31 @@ import React, { useState, useEffect } from 'react';
                 setUsername('');
                 setPw('');
             }
-            Alert.alert('User Updated!');
-            navigation.navigate('User');
         } catch (error) {
         console.error(error);
         } finally {
         setLoading(false);
         }
     }
+
+    const user_validation = () => {
+      errors = [];
+
+      let regex2 = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+      if(regex2.test(email) == false){
+          errors.push("Invalid Email format")
+      }
+      if (username.length < 4){
+          errors.push("Username should have at least 4 characters")
+      }
+      if (errors.length == 0){
+          Update();
+          Alert.alert('User Updated!');
+          navigation.navigate('User');
+      }else{
+          Alert.alert("Error!", errors.join('\n'))
+      }
+  }
    return (
 
     <ScrollView>
@@ -78,19 +114,33 @@ import React, { useState, useEffect } from 'react';
         <Text style={styles.user}>Username</Text>
         <TextInput 
             style = { styles.input }
-            onChangeText = { (text) => [setUsername(text)] }
+            onChangeText = { (text) => [checkUN(text) ,setUsername(text)] }
             placeholder='Enter Username'
             placeholderTextColor= 'gray'
             maxLength={15} 
             />
+        {
+          checkValidUN ? (
+              <Text style={{ color: 'red' }}>Invalid Username Format</Text>
+              ) : (
+              <Text></Text>
+          )
+        }
         <Text style={styles.email}>Email Address</Text>
         <TextInput 
             style = { styles.input }
-            onChangeText = { (text) => [setEmail(text)] }
+            onChangeText = { (text) => [checkemail(text) ,setEmail(text)] }
             placeholder='Enter Email'
             placeholderTextColor= 'gray'
             />
-        <Button onPress={Update} title="Update"></Button>
+          {
+            chkemail ? (
+                <Text style={{ color: 'red' }}>Invalid Email Format</Text>
+                ) : (
+                <Text></Text>
+            )
+            }
+        <Button onPress={user_validation} title="Update"></Button>
 
       </View>
         
