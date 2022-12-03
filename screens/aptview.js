@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {View, Button, Text, TextInput, StyleSheet, Alert, TouchableOpacity, Modal} from 'react-native';
+import {View, Button, Text, TextInput, StyleSheet, Alert} from 'react-native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { Dropdown } from 'react-native-element-dropdown';
 
@@ -28,6 +28,9 @@ const AptView = ( {navigation} ) => {
             label: apt.apttime,
             value: apt.apttime,
         }));
+        const selectDate = json.apt.map((appointment) => (
+            appointment.aptdate
+        ));
         const data = [
           {label: '9:00AM-10:00AM', value: '9:00AM-10:00AM'},
           {label: '10:00AM-11:00AM', value: '10:00AM-11:00AM'},
@@ -36,10 +39,21 @@ const AptView = ( {navigation} ) => {
           {label: '2:00PM-3:00PM', value: '2:00PM-3:00PM'},
           {label: '3:00PM-4:00PM', value: '3:00PM-4:00PM'},
           {label: '4:00PM-5:00PM', value: '4:00PM-5:00PM'},
-      ];
-        filteredArray = data.filter(array => !selectTime.find(label => (label.label === array.label && array.value === label.value) ))
-    
-        setNewTime(filteredArray);
+        ];
+
+        console.log(selectDate)
+
+        // if the selected date exists in the API, this will remove the time that already exists in the API
+        if (selectDate.includes(date.toLocaleDateString()) == true)
+        { 
+            filteredArray = data.filter(array => !selectTime.find(label => (label.label === array.label && array.value === label.value) ))
+            setNewTime(filteredArray);
+        } 
+        // if not, return all time in data
+        if (selectDate.includes(date.toLocaleDateString()) == false)
+        {
+            setNewTime(data);
+        }
         } catch (error) {
         console.error(error);
         } finally {
@@ -47,19 +61,20 @@ const AptView = ( {navigation} ) => {
         }
     }
 
+
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
         setDate(currentDate);
       };
     
     const showMode = (currentMode) => {
-        var today = new Date()
+        var date = new Date()
         DateTimePickerAndroid.open({
             value: date,
             onChange,
             mode: currentMode,
-            minimumDate: (today),
-            maximumDate: (new Date(today.getFullYear(), today.getMonth(), today.getDate()+6)),
+            minimumDate: (date),
+            maximumDate: (new Date(date.getFullYear(), date.getMonth(), date.getDate()+6)),
             is24Hour: true,
         }, 
     );
@@ -113,16 +128,9 @@ const AptView = ( {navigation} ) => {
                     user_id: x,
                 })
             });
-            if ((response).status === 201) {
-                setName('');
-                setCategory('');
-                setDate('');
-                setT('');
+            if ((response).status === 200) {
                 setPurpose('');
-                setid('');
             }
-            Alert.alert('Appointment Set!');
-            navigation.navigate('Appointment');
         const json = await response.json();
         setData(json.appointment);
         } catch (error) {
@@ -132,20 +140,18 @@ const AptView = ( {navigation} ) => {
         }
     }
 
-    const changeModalVisibility = (bool) => {
-        setisModalVisible(bool)
-    }
-
-    const settheData = (option) => {
-        setChooseData(option)
-    }
-
-    const cmv = (bool) => {
-        setModalVisible(bool)
-    }
-
-    const sd = (option) => {
-        setT(option)
+    const user_validation = () => {
+        errors = [];
+        if (purpose.length == 0){
+            errors.push("Complete the Form")
+        }
+        if (errors.length == 0){
+            AddApt();
+            Alert.alert('Appointment Set!');
+            navigation.navigate('Appointment');
+        }else{
+            Alert.alert("Error!", errors.join('\n'))
+        }
     }
 
     return(
@@ -168,7 +174,7 @@ const AptView = ( {navigation} ) => {
                 placeholder={!focus ? 'Select Time' : '...'}
                 searchPlaceholder="Search..."
                 value={value}
-                onFocus={() => setfocus(true)}
+                onFocus={() => [setfocus(true), gettime()]}
                 onBlur={() => setfocus(false)}
                 onChange={item => {
                 setValue(item.value);
@@ -181,8 +187,9 @@ const AptView = ( {navigation} ) => {
             onChangeText = { (text) => [setPurpose(text)] }
             placeholder='Enter purpose'
             placeholderTextColor= 'gray'
+            value={purpose}
             />
-            <Button onPress={ AddApt } title='Set Appointment'></Button>
+            <Button onPress={ user_validation } title='Set Appointment'></Button>
         </View>
     );
 };

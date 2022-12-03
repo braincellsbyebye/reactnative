@@ -118,6 +118,7 @@ import React, { useState, useEffect } from 'react';
             placeholder='Enter Username'
             placeholderTextColor= 'gray'
             maxLength={15} 
+            defaultValue={data.username}
             />
         {
           checkValidUN ? (
@@ -132,6 +133,7 @@ import React, { useState, useEffect } from 'react';
             onChangeText = { (text) => [checkemail(text) ,setEmail(text)] }
             placeholder='Enter Email'
             placeholderTextColor= 'gray'
+            defaultValue={data.email}
             />
           {
             chkemail ? (
